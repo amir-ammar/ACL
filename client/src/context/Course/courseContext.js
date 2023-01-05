@@ -167,7 +167,7 @@ const CourseProvider = ({ children }) => {
     };
 
     getAllCourses();
-  }, [token]);
+  }, [token, user]);
 
   useEffect(() => {
     const getMyCourses = async () => {

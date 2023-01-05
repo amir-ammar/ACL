@@ -75,16 +75,8 @@ const InstructorSideBar = [
     icon: <BookIcon />,
   },
   {
-    title: 'Wallet',
+    title: 'Earning',
     icon: <AccountBalanceWalletIcon />,
-  },
-  {
-    title: 'Performance',
-    icon: <AssessmentIcon />,
-  },
-  {
-    title: 'Messages',
-    icon: <MessageIcon />,
   },
   {
     title: 'Contract',
@@ -92,21 +84,12 @@ const InstructorSideBar = [
   },
 ];
 
-const CorporateSideBar = [
-  {
-    title: 'Messages',
-    icon: <MessageIcon />,
-  },
-];
+const CorporateSideBar = [];
 
 const IndividualSideBar = [
   {
     title: 'Refund',
     icon: <RefundIcon />,
-  },
-  {
-    title: 'Messages',
-    icon: <MessageIcon />,
   },
 ];
 
@@ -1082,7 +1065,7 @@ export default function Profile() {
           {component === 'My Courses' && user.type === 'Instructor' && (
             <InstructorProfile courses={courses}></InstructorProfile>
           )}
-          {component === 'Wallet' && user.type === 'Instructor' && (
+          {component === 'Earning' && user.type === 'Instructor' && (
             <InstructorWallet></InstructorWallet>
           )}
           {component === 'Refund' && (

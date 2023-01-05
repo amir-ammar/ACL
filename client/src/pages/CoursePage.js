@@ -336,16 +336,16 @@ const CoursePage = () => {
     }
 
     getCourse();
-    checkOwnership();
+
+    if (user) {
+      checkOwnership();
+    }
 
     if (!subtitles) {
       getSubtitles();
     }
-    console.log('*****************');
+
     if (isEnrolled) {
-      console.log(
-        '-----------------------------------------------------------------------------------'
-      );
       checkRefundState();
     }
   }, [courseId, courses, myCourses, token, isEnrolled]);
@@ -489,16 +489,18 @@ const CoursePage = () => {
 
               {!isEnrolled &&
                 !isOwner &&
-                user.type === 'Individual trainee' && (
+                user?.type === 'Individual trainee' && (
                   <BuyCourse
                     courseId={courseId}
                     coursePrice={course?.originalPrice}
                   ></BuyCourse>
                 )}
 
-              {!isEnrolled && !isOwner && user.type === 'Corporate trainee' && (
-                <RequestCourse courseId={courseId}></RequestCourse>
-              )}
+              {!isEnrolled &&
+                !isOwner &&
+                user?.type === 'Corporate trainee' && (
+                  <RequestCourse courseId={courseId}></RequestCourse>
+                )}
 
               <p>
                 <AiOutlineCheck /> 30-Day Money-Back Guarantee
@@ -507,29 +509,31 @@ const CoursePage = () => {
                 <AiOutlineCheck />
                 Full Lifetime Access
               </p>
-              {isEnrolled && applyCoupon && (
-                <>
-                  <hr className={`${classes.line}`} />
-                  <div className={`{${classes.applyCoupon}}`}>
-                    <input
-                      type={'text'}
-                      placeholder={'Enter the reason'}
-                      className={`${classes.applyCouponInput}`}
-                      ref={inputRef}
-                    />
-                    <button
-                      className={classes.applyCouponButton}
-                      onClick={() => {
-                        isEnrolled
-                          ? setRequestRefund(true)
-                          : applyCouponHandler();
-                      }}
-                    >
-                      Request
-                    </button>
-                  </div>
-                </>
-              )}
+              {isEnrolled &&
+                user?.type === 'Individual trainee' &&
+                applyCoupon && (
+                  <>
+                    <hr className={`${classes.line}`} />
+                    <div className={`{${classes.applyCoupon}}`}>
+                      <input
+                        type={'text'}
+                        placeholder={'Enter the reason'}
+                        className={`${classes.applyCouponInput}`}
+                        ref={inputRef}
+                      />
+                      <button
+                        className={classes.applyCouponButton}
+                        onClick={() => {
+                          isEnrolled
+                            ? setRequestRefund(true)
+                            : applyCouponHandler();
+                        }}
+                      >
+                        Request
+                      </button>
+                    </div>
+                  </>
+                )}
               {isEnrolled && !applyCoupon && (
                 <>
                   <button
