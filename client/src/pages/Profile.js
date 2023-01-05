@@ -391,7 +391,7 @@ function InstructorProfile({ courses }) {
 
   const checkCourse = (candidateCourse, topics, prices, ratings) => {
     let topicFlag =
-      topics.length === 0 || topics.includes(candidateCourse.title)
+      topics.length === 0 || topics.includes(candidateCourse.subject)
         ? true
         : false;
 
@@ -613,7 +613,7 @@ function InstructorProfile({ courses }) {
                   '10 - 100',
                   '100 - 1000',
                   '1000 - 10000',
-                  '10000+',
+                  '10000 - 1000000',
                 ]}
                 onFilter={handleResult}
               />
