@@ -117,7 +117,6 @@ function CenteredTabs({ changeTab }) {
   const [value, setValue] = useState(0);
   const { user, token } = useAppContext();
 
-  console.log("user",user);
   const handleChange = (event, newValue) => {
     changeTab(newValue);
     setValue(newValue);
@@ -152,7 +151,7 @@ function CenteredTabs({ changeTab }) {
 const Home = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-  const {user,token} = useAppContext();
+  const { user, token } = useAppContext();
   const [tab, setTab] = useState(0);
   const { courses, myCourses } = useCourseContext();
   const [sortedCourses, setSortedCourses] = useState();
@@ -160,8 +159,9 @@ const Home = () => {
   const [completed, setCompleted] = useState();
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
+    console.log('Home useEffect');
     setLoading(true);
     if (myCourses && courses && courses.length > 0) {
       const inprogress = myCourses.filter((course) => {

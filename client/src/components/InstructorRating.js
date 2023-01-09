@@ -112,6 +112,7 @@ function InstructorRating({ instructorId, type }) {
   const [ratedByCurrentUser, setRatedByCurrentUser] = useState(() => false);
 
   useEffect(() => {
+    console.log('Instructor Rating useEffect');
     if (instructorId === undefined) return;
     setLoading(true);
     const fetchInstructorRating = async () => {

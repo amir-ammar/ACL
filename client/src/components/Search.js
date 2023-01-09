@@ -4,7 +4,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
 import Wrapper from '../assets/Wrappers/SearchWrapper';
 import { Box } from '@material-ui/core';
-// import { useSearchContext } from '../context/Search/searchContext';
 import { makeStyles } from '@material-ui/core/styles';
 import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
@@ -81,7 +80,6 @@ const Search = () => {
       query: term,
       filteredCourses,
     });
-    // setQueriedCourses(filteredCourses);
   };
 
   const clearInput = () => {

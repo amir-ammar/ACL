@@ -3,12 +3,9 @@ import axios from 'axios';
 import { backendApi } from '../../projectConfig';
 import { useEffect } from 'react';
 
-const userFromLocalStorage = localStorage.getItem('user');
-const tokenFromLocalStorage = localStorage.getItem('token');
-
 const initialState = {
-  user: JSON.parse(userFromLocalStorage),
-  token: tokenFromLocalStorage,
+  user: null,
+  token: null,
   isLoading: false,
   alert: false,
   alertType: '',
@@ -21,6 +18,7 @@ const AppProvider = ({ children }) => {
   const [state, setState] = useState(() => initialState);
 
   useEffect(() => {
+    console.log('AppContext useEffect');
     const fetchState = async () => {
       const userFromLocalStorage = localStorage.getItem('user');
       const tokenFromLocalStorage = localStorage.getItem('token');

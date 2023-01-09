@@ -43,6 +43,7 @@ function InstructorProfile() {
   const { instructorId } = useParams();
 
   useEffect(() => {
+    console.log('useEffect instructor profile');
     setLoading(true);
     const fetchInstructor = async () => {
       try {

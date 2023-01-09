@@ -381,6 +381,7 @@ const SubtitlesPage = () => {
   }
   useEffect(() => {
     if (myCourses.length !== 0) checkOwnership();
+    console.log('Subtitle useEffect 1');
   }, [myCourses, courseId]);
 
   const handleClickOpen = (reportId) => {
@@ -438,6 +439,7 @@ const SubtitlesPage = () => {
   };
 
   useEffect(() => {
+    console.log('Subtitle useEffect 2');
     console.log('courseId ' + courseId);
     async function fetchSubtitles() {
       const response = await axios.get(
@@ -495,6 +497,8 @@ const SubtitlesPage = () => {
   }, [courseId, token]);
 
   useEffect(() => {
+    console.log('Subtitle useEffect 3');
+
     const getExam = async (examId) => {
       try {
         const response = await axios.get(

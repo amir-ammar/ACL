@@ -25,7 +25,7 @@ const UserSchema = mongoose.Schema({
   },
   country: {
     type: String,
-    default: "USA",
+    default: 'USA',
   },
   type: {
     type: String,
@@ -75,6 +75,11 @@ const UserSchema = mongoose.Schema({
   averageRating: {
     type: Number,
     default: 0,
+  },
+
+  contracted: {
+    type: Boolean,
+    default: false,
   },
 });
 

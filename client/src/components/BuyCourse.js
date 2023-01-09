@@ -48,9 +48,8 @@ function BuyCourse({ courseId, coursePrice }) {
         console.log(err);
       });
   }
-  console.log("course price",coursePrice);
+
   let buyFor = coursePrice - wallet;
-  console.log("wallet",wallet);
   if (buyFor < 0) {
     buyFor = 0;
   }

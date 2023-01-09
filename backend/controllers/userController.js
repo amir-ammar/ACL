@@ -34,7 +34,10 @@ const updateUserInfo = async (req, res) => {
     biography,
     country,
     rating,
+    contracted,
   } = req.body;
+
+  console.log(req.body);
 
   const user = await User.findOne({ _id: userId });
 
@@ -48,6 +51,7 @@ const updateUserInfo = async (req, res) => {
     if (!isMatch) throw new UnauthorizedError('Invalid credentials');
     user.password = newPassword;
   }
+  if (contracted) user.contracted = contracted;
 
   let instructor;
   if (rating && instructorId) {

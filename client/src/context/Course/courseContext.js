@@ -135,6 +135,8 @@ const CourseProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log('courseContext useEffect1');
+
     const getAllCourses = async () => {
       try {
         const response = await axios.get('http://localhost:8080/api/v1/course');
@@ -191,6 +193,7 @@ const CourseProvider = ({ children }) => {
     };
 
     if (token && state.courses.length > 0) {
+      console.log('courseContext useEffect2');
       getMyCourses();
     }
   }, [state.courses, token, user]);

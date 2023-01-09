@@ -136,6 +136,7 @@ function SearchResult() {
   const [showFilters, setShowFilters] = useState(true);
 
   useEffect(() => {
+    console.log('Search result useEffect');
     let searchResults = search(searchParams.get('query'));
     setState({
       ...state,
@@ -287,7 +288,6 @@ function SearchResult() {
       <div className={classes.body}>
         <section className={`${classes.filterSection}`}>
           <CustomButton
-            // text='Filter'
             onClick={() => setShowFilters(!showFilters)}
             icon={<FaFilter />}
           ></CustomButton>

@@ -144,7 +144,7 @@ function Demo({
 }) {
   const classes = useStyles();
   const navigate = useNavigate();
-  console.log(courseId);
+
   return (
     <>
       <div className={classes.demo}>
@@ -358,36 +358,10 @@ function CourseComponent({
         </div>
       )}
       {!horizontal && (
-        <div
-          className={`${classes.course}`}
-          // style={{
-          //   position: 'absolute',
-          //   top: courseRef.current?.offsetTop,
-          //   left: Number(
-          //     courseRef.current?.offsetLeft +
-          //       courseRef.current?.offsetWidth +
-          //       400 >=
-          //       document.body.clientWidth
-          //       ? courseRef.current?.offsetLeft - 400
-          //       : courseRef.current?.offsetLeft + courseRef.current?.offsetWidth
-          //   )
-          //     ? Number(
-          //         courseRef.current?.offsetLeft +
-          //           courseRef.current?.offsetWidth +
-          //           400 >=
-          //           document.body.clientWidth
-          //           ? courseRef.current?.offsetLeft - 400
-          //           : courseRef.current?.offsetLeft +
-          //               courseRef.current?.offsetWidth
-          //       )
-          //     : 0,
-          // }}
-        >
+        <div className={`${classes.course}`}>
           <Link
             to={`/course/${courseId}`}
             style={{ textDecoration: 'none', color: 'black' }}
-            // onMouseEnter={() => setShowDemo(true)}
-            // onMouseLeave={() => setShowDemo(false)}
           >
             <img
               className={classes.imgVertical}

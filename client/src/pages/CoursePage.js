@@ -249,7 +249,6 @@ const CoursePage = () => {
   const [course, setCourse] = useState({});
   const { token, user } = useAppContext();
   const [showDescription, setShowDescription] = useState(false);
-  const [applyCoupon, setApplyCoupon] = useState(false);
   const [requestRefund, setRequestRefund] = useState(false);
   const [showRefundForm, setShowRefundForm] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
@@ -261,13 +260,14 @@ const CoursePage = () => {
   const [alert, setAlert] = useState(null);
   const [showPromotionForm, setShowPromotionForm] = useState(false);
   const inputRef = useRef();
+  const [progress, setProgress] = useState();
 
-  console.log('course', course);
   const updateSubtitles = (newSubtitles) => {
     setSubtitles([...subtitles, ...newSubtitles]);
   };
 
   useEffect(() => {
+    console.log('Course Page useEffect');
     setLoading(true);
 
     function getCourse() {
@@ -295,7 +295,7 @@ const CoursePage = () => {
       setLoading(false);
     }
 
-    async function getSubtitles() {
+    async function getSubtitles(courseId) {
       const response = await axios.get(
         `http://localhost:8080/api/v1/course/${courseId}/subtitle`,
         {
@@ -316,39 +316,20 @@ const CoursePage = () => {
           setIsOwner(true);
         } else {
           setIsEnrolled(true);
+          console.log('progress: ' + progress);
+          setProgress(() => course?.progress);
         }
       }
     }
 
-    async function checkRefundState() {
-      const response = await axios.get(
-        `http://localhost:8080/api/v1/refund`,
-        {
-          courseId,
-        },
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        }
-      );
-      console.log(response.data);
-    }
-
     getCourse();
-
     if (user) {
       checkOwnership();
     }
-
-    if (!subtitles) {
-      getSubtitles();
+    if (!subtitles && courseId) {
+      getSubtitles(courseId);
     }
-
-    if (isEnrolled) {
-      checkRefundState();
-    }
-  }, [courseId, courses, myCourses, token, isEnrolled]);
+  }, [courseId, courses, myCourses, token]);
 
   const requestRefundHandler = () => {
     setLoading(true);
@@ -377,10 +358,6 @@ const CoursePage = () => {
     }, 3000);
   };
 
-  const applyCouponHandler = () => {
-    console.log('apply coupon');
-  };
-  console.log(isEnrolled);
   return (
     <>
       {loading && <Loading type={'spin'} color={'#3f51b5'} />}
@@ -511,7 +488,7 @@ const CoursePage = () => {
               </p>
               {isEnrolled &&
                 user?.type === 'Individual trainee' &&
-                applyCoupon && (
+                showRefundForm && (
                   <>
                     <hr className={`${classes.line}`} />
                     <div className={`{${classes.applyCoupon}}`}>
@@ -523,65 +500,24 @@ const CoursePage = () => {
                       />
                       <button
                         className={classes.applyCouponButton}
-                        onClick={() => {
-                          isEnrolled
-                            ? setRequestRefund(true)
-                            : applyCouponHandler();
-                        }}
+                        onClick={() => setRequestRefund(true)}
                       >
                         Request
                       </button>
                     </div>
                   </>
                 )}
-              {isEnrolled && !applyCoupon && (
+              {isEnrolled && !showRefundForm && progress < 50 && (
                 <>
                   <button
                     className={classes.coupon}
-                    onClick={() => setApplyCoupon(true)}
+                    onClick={() => setShowRefundForm(true)}
                   >
-                    {isEnrolled ? <>Request Refund</> : <>Apply Coupon</>}
+                    Request Refund
                   </button>
                 </>
               )}
-
-              {/* {!applyCoupon && (
-                <button
-                  className={classes.coupon}
-                  onClick={() => setApplyCoupon(true)}
-                >
-                  {isEnrolled ? <>Request Refund</> : <>Apply Coupon</>}
-                </button>
-              )} */}
-              {/* {applyCoupon && (
-                <>
-                  <hr className={`${classes.line}`} />
-                  <div className={`{${classes.applyCoupon}}`}>
-                    <input
-                      type={isEnrolled ? 'number' : 'text'}
-                      placeholder={
-                        isEnrolled
-                          ? 'Enter the amount of money'
-                          : 'Enter coupon'
-                      }
-                      className={`${classes.applyCouponInput}`}
-                      ref={inputRef}
-                    />
-                    <button
-                      className={classes.applyCouponButton}
-                      onClick={() => {
-                        isEnrolled
-                          ? setRequestRefund(true)
-                          : applyCouponHandler();
-                      }}
-                    >
-                      {isEnrolled ? 'Request' : 'Apply'}
-                    </button>
-                  </div>
-                </>
-              )} */}
             </Box>
-            {/* frame for youtube video here  */}
           </div>
           <div className={`${classes.content}`}>
             <section className={`${classes.description}`}>
