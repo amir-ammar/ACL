@@ -6,7 +6,7 @@ import { backendApi } from "../../projectConfig";
 
 function useWallet(props){
     const { token, user } = useAppContext();
-    const [wallet,setWallet] = useState(0);
+    const [wallet,setWallet] = useState();
     useEffect(() => {
         let url = `${backendApi}user/wallet/${user._id}`;
         axios.get(url, {
